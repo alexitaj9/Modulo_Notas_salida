@@ -1,12 +1,19 @@
 //Create const
 const express = require('express');
 const mongodb = require("./db");
-const router = express.Router();
+const router = express();
+//const server = express();
+
+// Load enviroment variables from .env file
+require('dotenv').config();
+
+//Set parser
+router.use(express.json());
 
 //Connect to database
 mongodb.connection(function(collection) {
     //Get API global
-    router.get("/", function(request, response) {
+    router.get("/usuarios", function(request, response) {
         //Find all documents
         collection.find().toArray((error, usuariosMdl) => {
             //Errors control
@@ -22,7 +29,7 @@ mongodb.connection(function(collection) {
     });
 
     //Get API identify
-    router.get("/:identify", function(request, response) {
+    router.get("/usuarios/:identify", function(request, response) {
         //Create const
         let usuariosMdlIdentify = parseInt(request.params.identify);
 
@@ -41,7 +48,7 @@ mongodb.connection(function(collection) {
     });
 
     //POST API
-    router.post("/", function(request, response) {
+    router.post("/usuarios", function(request, response) {
         //Create const
         const usuariosMdl = request.body;
 
@@ -60,13 +67,15 @@ mongodb.connection(function(collection) {
     });
 
     //PUT API
-    router.put("/:identify", function(request, response) {
+    router.put("/usuarios/:id", function(request, response) {
         //Create const
-        const usuariosMdlIdentify = parseInt(request.params.identify);
+        const usuariosMdlIdentify = request.params.id;
         const newDataUsuariosMdl = request.body;
 
+        //console.log(usuariosMdlIdentify);   
         //Update
-        collection.updateOne({ "identify" : usuariosMdlIdentify }, { $set : newDataUsuariosMdl }, (error, result) => {
+        collection.updateOne({ "Identificacion" : usuariosMdlIdentify }, { $set : newDataUsuariosMdl }, (error, result) => {
+            //console.log(newDataUsuariosMdl);     
             //Errors control
             if (error) {
                 //Print
@@ -79,6 +88,7 @@ mongodb.connection(function(collection) {
         });
     });
 
+    /* The application by requirements does not allow users to be deleted.
     //DELETE ALL API
     router.delete("/", function(request, response) {
         //Delete Username
@@ -112,8 +122,14 @@ mongodb.connection(function(collection) {
                 response.sendStatus(200);
             }
         });
-    });
+    });*/
 });
 
 //Exports
 module.exports = router;
+
+//Server start
+router.listen(3000, () => {
+    //Log
+	console.log("Server Started");
+});

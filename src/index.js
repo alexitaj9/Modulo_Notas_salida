@@ -14,7 +14,7 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-
+/*
 //Create const
 const express = require("express");
 const server = express();
@@ -32,8 +32,10 @@ server.use("/", function(request, response) {
     response.send("Hola Mundo!");
 });
 
+
 //Server start
 server.listen(4000, () => {
     //Log
 	console.log("Server Started");
 });
+*/
