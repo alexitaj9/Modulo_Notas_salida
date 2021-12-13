@@ -1,15 +1,16 @@
 //Declarar
 const express = require("express");
-const server = express();
+const router = express.Router();
 const mongodb = require("./db");
-
-//Convert to json
-server.use(express.json());
 
 //MongoDB functions
 mongodb.connection(function (collection) {
+    //Seleccionar coleccion
+    collection.s.namespace.collection = 'notasSalida';
+    
     //Get request
-    server.get("/notasSalida", function(request, response) {
+    router.get("/", function(request, response) {
+        
         //Consulta
         collection.find().toArray((error, notasSalida) => {
             if (error) {
@@ -24,7 +25,7 @@ mongodb.connection(function (collection) {
     });
 
     //Get request consecutivo
-    server.get("/notasSalida/:consecutivo", function(request, response) {
+    router.get("/:consecutivo", function(request, response) {
         //Capturar consecutivo
         let consecutivo = parseInt(request.params.consecutivo);
 
@@ -43,7 +44,7 @@ mongodb.connection(function (collection) {
     });
 
     //Post request
-    server.post("/notasSalida", function(request, response) {
+    router.post("/", function(request, response) {
         //Create const
         let notaSalida = request.body;
 
@@ -62,7 +63,7 @@ mongodb.connection(function (collection) {
     });
 
     //Put request
-    server.put("/notasSalida/:consecutivo", function(request, response) {
+    router.put("/:consecutivo", function(request, response) {
         //Capturar datos
         let consecutivo = parseInt(request.params.consecutivo);
         let nuevosDatos = request.body;
@@ -82,7 +83,7 @@ mongodb.connection(function (collection) {
     });
 
     //Delete request
-    server.delete("/notasSalida/:consecutivo", function(request, response) {
+    router.delete("/:consecutivo", function(request, response) {
         //Capturar datos
         let consecutivo = parseInt(request.params.consecutivo);
 
@@ -101,7 +102,7 @@ mongodb.connection(function (collection) {
     });
 
     //Delete request
-    server.delete("/notasSalida", function(request, response) {
+    router.delete("/", function(request, response) {
         //Eliminar
         collection.deleteMany({ }, (error, status) => {
             //Control error
@@ -117,6 +118,5 @@ mongodb.connection(function (collection) {
     });
 });
 
-server.listen(4000, () => {
-    console.log("Server started");
-})
+//Exportar
+module.exports = router;

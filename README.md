@@ -4,6 +4,7 @@ Se requiere instalar los siguientes paquetes:
 2. > `npm install body-parser`
 3. > `npm install -g nodemon`
 4. > `npm install mongodb` 
+5. > `npm install react-bootstrap bootstrap@4.6.0`
 
 # Estandar
 Nombre archivos:

@@ -1,7 +1,7 @@
 //Create const
 const mongodb = require("mongodb");
 const mongodbClient = mongodb.MongoClient;
-const uri = "mongodb+srv://<usuario>:<password>@mintic.9z7mi.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://<usuario>:<contraseña>@mintic.9z7mi.mongodb.net/?retryWrites=true&w=majority";
 const databaseName = "notas_de_salida";
 const collectionName = "test";
 

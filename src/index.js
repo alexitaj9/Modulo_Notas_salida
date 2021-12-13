@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
+import NotasSalida from './componentes/notasSalida/NotasSalida';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    /*Modulos*/
+    <NotasSalida />
   </React.StrictMode>,
   document.getElementById('root')
 );
